@@ -4,7 +4,7 @@
       <div class="menuLateral_header_close">
         <i class="material-icons" id="closeMenuLateral" v-on:click="toggleMenuLateral">close</i>
       </div>
-      <a href="https//www.fablabkujana.com/" target="_blank" class="menuLateral_web">Sitio web</a>
+      <a href="https//www.fablabkujana.com" target="_blank" class="menuLateral_web">Sitio web</a>
       <nav class="menuLateral_navigation">
         <ul class="menuLateral_navigation_list">
           <span id="postionInNavigation" class="menuLateral_navigation__efffect"></span>
@@ -213,7 +213,8 @@
               <p>Transparencia</p>
             </router-link>
           </li> -->
-          <li class="menuLateral_navigation__item"><a v-loading.fullscreen.lock="fullscreenLoading" v-on:click="logout">
+          <li class="menuLateral_navigation__item">
+            <a v-loading.fullscreen.lock="fullscreenLoading" v-on:click="logout">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="21px" height="16px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
                 <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
                 <g fill="#9B9B9B">
@@ -222,16 +223,17 @@
                 </g>
               </svg>
               <p>Salir</p>
-            </a></li>
+            </a>
+          </li>
         </ul>
       </nav>
-      <div class="menuLateral_help">
+      <!-- <div class="menuLateral_help">
         <img src="../assets/ayuda.png" alt="">
         <p class="menuLateral_help_title">Necesitas ayuda?</p>
         <p class="menuLateral_help_text">PBX: (+57) 8 681 85 00</p>
         <p class="menuLateral_help_text">Línea: 01 8000 129 202</p>
         <router-link to="/manual">Manual de usuario</router-link>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -265,16 +267,16 @@ export default {
     },
     toggleMenuLateral(event) {
       if (
-        event.target.id == "menuLateral" ||
-        event.target.tagName == "A" ||
-        event.target.id == "closeMenuLateral"
+        event.target.id == 'menuLateral' ||
+        event.target.tagName == 'A' ||
+        event.target.id == 'closeMenuLateral'
       ) {
-        document.getElementById("menuLateral").classList.remove("openMenu");
+        document.getElementById('menuLateral').classList.remove('openMenu');
       }
     },
     movedNavigationEffect(value) {
-      const mq = window.matchMedia("(max-width: 800px)");
-      let indicator = document.getElementById("postionInNavigation");
+      const mq = window.matchMedia('(max-width: 800px)');
+      let indicator = document.getElementById('postionInNavigation');
       let height;
       if (mq.matches) {
         height = 16.66667;
@@ -283,39 +285,39 @@ export default {
       }
       if (value.matched[0]) {
         switch (value.matched[0].name) {
-          case "Inicio":
+          case 'Inicio':
             indicator.style.top = `${height * 0}%`;
             break;
-          case "Social":
+          case 'Social':
             indicator.style.top = `${height * 1}%`;
             break;
-          case "Circulares":
+          case 'Circulares':
             indicator.style.top = `${height * 2}%`;
             break;
-          case "Funcionarios":
+          case 'Funcionarios':
             indicator.style.top = `${height * 3}%`;
             break;
-          case "Agenda":
+          case 'Agenda':
             indicator.style.top = `${height * 4}%`;
             break;
-          case "Documentos":
+          case 'Documentos':
             indicator.style.top = `${height * 5}%`;
             break;
-          case "Chat":
+          case 'Chat':
             if (mq.matches) {
               indicator.style.top = `${height * 5}%`;
             } else {
               indicator.style.top = `${height * 6}%`;
             }
             break;
-          case "Ajustes":
+          case 'Ajustes':
             if (mq.matches) {
               indicator.style.top = `${height * 6}%`;
             } else {
               indicator.style.top = `${height * 7}%`;
             }
             break;
-          case "microSitios":
+          case 'microSitios':
             indicator.style.top = `${height * 8}%`;
             break;
         }
@@ -324,7 +326,7 @@ export default {
       }
     },
     logout() {
-      document.getElementById("postionInNavigation").style.top = `${8.3 * 8}%`;
+      document.getElementById('postionInNavigation').style.top = `${8.3 * 8}%`;
       window.location.href = `${this.$urlHttp}/logout`;
       this.fullscreenLoading = true;
     }

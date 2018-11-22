@@ -1,9 +1,9 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import axios from "axios";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import axios from 'axios';
 
 Vue.use(Vuex);
-const conf = JSON.parse(localStorage.getItem("conf"));
+const conf = JSON.parse(localStorage.getItem('conf'));
 export const store = new Vuex.Store({
   state: {
     dialogUrlExterna: false,
@@ -18,12 +18,12 @@ export const store = new Vuex.Store({
     timelineData: [],
     circularData: [],
     circularDataTMP: [],
-    searchArticle: "",
+    searchArticle: '',
     agendaData: [],
     chats: [],
-    newKeyChat: "",
+    newKeyChat: '',
     currentUser: conf,
-    backupSearchFuncionario: "",
+    backupSearchFuncionario: '',
     thisIsAllow: false,
     notificaciones: [],
     micrositiosData: [],
@@ -33,14 +33,14 @@ export const store = new Vuex.Store({
     dialogDataCreateSeccion: {},
     loadingCropper: false,
     micrositioNew: {
-      titulo: "",
-      menu: "",
-      email: "",
-      telefono: "",
-      direccion: "",
+      titulo: '',
+      menu: '',
+      email: '',
+      telefono: '',
+      direccion: '',
       estado: false,
-      facebook: "",
-      twitter: ""
+      facebook: '',
+      twitter: ''
     }
   },
   mutations: {
@@ -68,7 +68,7 @@ export const store = new Vuex.Store({
       }
     },
     users(state) {
-      axios.get("https://panel.fablabkujana.com/users/get").then(response => {
+      axios.get('https://panel.fablabkujana.com/users/get').then(response => {
         let newArray = [];
         for (let dependencia of response.data.dependencias) {
           dependencia.funcionarios =
@@ -82,16 +82,19 @@ export const store = new Vuex.Store({
     },
     timeline(state) {
       axios
-        .get("https://panel.fablabkujana.com/api/noticias")
+        .get('https://panel.fablabkujana.com/api/noticias')
         .then(response => {
           state.timelineData = response.data.timeline;
           state.timelineDataTMP = response.data.timeline;
-          state.circularData = response.data.timeline.filter(
-            article => article.idDependencia == 37
-          );
-          state.circularDataTMP = response.data.timeline.filter(
-            article => article.idDependencia == 37
-          );
+          // state.circularData = response.data.timeline.filter(
+          //   article => article.idDependencia == 40
+          // state.circularData = response.data.timeline
+          // );
+          // state.circularDataTMP = response.data.timeline.filter(
+          //   article => article.idDependencia == 40
+          // state.circularDataTMP = response.data.timeline
+
+          // );
         });
     },
     SEARCH_ARTICLE(state, search) {
@@ -105,7 +108,7 @@ export const store = new Vuex.Store({
       );
     },
     diary(state) {
-      axios.get("https://panel.fablabkujana.com/agenda").then(response => {
+      axios.get('https://panel.fablabkujana.com/agenda').then(response => {
         state.agendaData = response.data.agenda;
         for (let event of state.agendaData) {
           event.title = event.titulo;
@@ -120,13 +123,13 @@ export const store = new Vuex.Store({
       });
     },
     folders(state) {
-      axios.get("https://panel.fablabkujana.com/carpetas").then(response => {
+      axios.get('https://panel.fablabkujana.com/carpetas').then(response => {
         state.foldersData = response.data.carpetas;
       });
     },
     micrositios(state) {
       axios
-        .get("https://panel.fablabkujana.com/api/micrositio")
+        .get('https://panel.fablabkujana.com/api/micrositio')
         .then(response => {
           state.micrositiosData = response.data.data;
         });
@@ -134,8 +137,8 @@ export const store = new Vuex.Store({
   }
 });
 
-store.commit("users");
-store.commit("timeline");
-store.commit("diary");
-store.commit("folders");
-store.commit("micrositios");
+store.commit('users');
+store.commit('timeline');
+store.commit('diary');
+store.commit('folders');
+store.commit('micrositios');

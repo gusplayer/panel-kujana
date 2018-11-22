@@ -49,7 +49,7 @@
           <p>{{ currentUser.nombreUser }}</p>
           <em>Editar perfil</em>
         </div>
-        <span class="menuSuperior_options_currentUser_photo"><img :src="`${$urlHttp}/imagenes_usuario/imagen_usuario/${currentUser.foto}`" alt=""></span>
+        <span class="menuSuperior_options_currentUser_photo"><img src="../assets/avatar.jpg" alt=""></span>
       </router-link>
     </div>
   </div>
