@@ -29,7 +29,7 @@
       <vue-editor v-model="articleContent" :editorToolbar="customToolbar"></vue-editor>
     </div>
     <div class="photos">
-      <figure class="photo" v-for="(photo, index) in urlPhotos">
+      <figure class="photo" v-for="(photo, index) in urlPhotos" :key="index">
         <button class="remove_photo" v-on:click="removePhoto(index)">
           <i class="material-icons">clear</i>
         </button>
