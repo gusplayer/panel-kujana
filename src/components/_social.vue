@@ -1,60 +1,133 @@
 <template>
   <section id="social">
-    <el-dialog title="Editar Articulo" :size="sizeDialog" :visible.sync="dialogEditArticle" v-loading.body="loadingActionArticle">
+    <el-dialog
+      title="Editar Articulo"
+      :size="sizeDialog"
+      :visible.sync="dialogEditArticle"
+      v-loading.body="loadingActionArticle"
+    >
       <div class="inputs_row">
-        <el-input placeholder="Titulo del articulo" v-model="currentArticle.titulo"></el-input>
-        <el-select v-model="currentArticle.idDependencia" placeholder="Dependencia">
-          <el-option v-for="item in dependencias" :key="item.idDependencia" :label="item.nombreDependencia" :value="item.idDependencia">
+        <el-input
+          placeholder="Titulo del articulo"
+          v-model="currentArticle.titulo"
+        ></el-input>
+        <el-select
+          v-model="currentArticle.idDependencia"
+          placeholder="Dependencia"
+        >
+          <el-option
+            v-for="item in dependencias"
+            :key="item.idDependencia"
+            :label="item.nombreDependencia"
+            :value="item.idDependencia"
+          >
           </el-option>
         </el-select>
-        <el-select v-model="currentArticle.destino" placeholder="Tipo de destino">
-          <el-option label="Intranet" value="1"></el-option>
-          <el-option label="Intranet & Pagina Web" value="3"></el-option>
+        <el-select
+          v-model="currentArticle.destino"
+          placeholder="Tipo de destino"
+        >
+          <el-option
+            label="Intranet"
+            value="1"
+          ></el-option>
+          <el-option
+            label="Intranet & Pagina Web"
+            value="3"
+          ></el-option>
         </el-select>
       </div>
       <div class="inputs_row codes">
-        <el-input type="textarea" :rows="2" placeholder="Introducir codigo soundcloud" v-model="currentArticle.soundcloud">
+        <el-input
+          type="textarea"
+          :rows="2"
+          placeholder="Introducir codigo soundcloud"
+          v-model="currentArticle.soundcloud"
+        >
         </el-input>
-        <el-input type="textarea" :rows="2" placeholder="Introducir codigo de youtube" v-model="currentArticle.youtube">
+        <el-input
+          type="textarea"
+          :rows="2"
+          placeholder="Introducir codigo de youtube"
+          v-model="currentArticle.youtube"
+        >
         </el-input>
       </div>
-      <vue-editor v-model="currentArticle.contenido" :editorToolbar="customToolbar"></vue-editor>
+      <vue-editor
+        v-model="currentArticle.contenido"
+        :editorToolbar="customToolbar"
+      ></vue-editor>
       <div class="images_tiny">
-        <div class="images_tiny_photo" v-for="(image, index) in currentArticle.imagenes">
-          <button class="remove_photo" v-on:click="removePhoto(index, image.idImagenTimeline)">
+        <div
+          class="images_tiny_photo"
+          v-for="(image, index) in currentArticle.imagenes"
+          :key="index"
+        >
+          <button
+            class="remove_photo"
+            v-on:click="removePhoto(index, image.idImagenTimeline)"
+          >
             <i class="material-icons">clear</i>
           </button>
           <img :src="`${$urlHttp}/imagen_timeline/${image.nombre_imagen}`">
         </div>
-        <div v-if="urlPhotos.length < 5" class="uploaderPhoto">
-          <input type="file" v-on:change="uploadImage">
+        <div
+          v-if="urlPhotos.length < 5"
+          class="uploaderPhoto"
+        >
+          <input
+            type="file"
+            v-on:change="uploadImage"
+          >
           <i class="material-icons">add</i>
         </div>
       </div>
       <div style="margin-top: 5px;">
-        <el-button type="danger" v-on:click="deleteArticle" icon="delete">Eliminar</el-button>
+        <el-button
+          type="danger"
+          v-on:click="deleteArticle"
+          icon="delete"
+        >Eliminar</el-button>
         <el-button v-on:click="editArticle">Guardar informacion</el-button>
       </div>
     </el-dialog>
-    <div class="timeline" v-loading="timelineLoading">
+    <div
+      class="timeline"
+      v-loading="timelineLoading"
+    >
       <create-article v-if="allow()"></create-article>
-      <paginate name="timelineData" :list="timelineData" :per="5">
-        <social-article :article="article" :index="index" @edit="openDialogEditArticle" v-for="(article, index) in paginate[timelineData]" :key="index">
-          <p>fd</p>
-        </social-article>
-      </paginate>
-      <paginate-links for="timelineData" :limit="5" @change="onLangsPageChange" :show-step-links="true">
+      <!-- <paginate
+        name="timelineData"
+        :list="timelineData"
+        :per="5"
+      > -->
+      <social-article
+        :article="article"
+        :index="index"
+        @edit="openDialogEditArticle"
+        v-for="(article, index) in timelineData"
+        :key="index"
+      >
+        <p>fd</p>
+      </social-article>
+      <!-- </paginate> -->
+      <paginate-links
+        for="timelineData"
+        :limit="5"
+        @change="onLangsPageChange"
+        :show-step-links="true"
+      >
       </paginate-links>
     </div>
   </section>
 </template>
 
 <script>
-import createArticle from './social_crear.vue';
-import socialArticle from './UIComponents/socialarticle.vue';
-import comentarios from './comentarios.vue';
-import { VueEditor } from 'vue2-editor';
-import axios from 'axios';
+import createArticle from "./social_crear.vue";
+import socialArticle from "./UIComponents/socialarticle.vue";
+import comentarios from "./comentarios.vue";
+import { VueEditor } from "vue2-editor";
+import axios from "axios";
 
 export default {
   components: { VueEditor, createArticle, socialArticle, comentarios },
@@ -65,13 +138,13 @@ export default {
   },
   data() {
     return {
-      paginate: ['timelineData'],
+      paginate: ["timelineData"],
       newPhotoArticle: false,
       fileList: [],
-      articleContent: '',
+      articleContent: "",
       urlPhotos: [],
       images: [],
-      dependenciaSelected: '',
+      dependenciaSelected: "",
       dialogEditArticle: false,
       currentArticle: {},
       currentIndexArticle: 0,
@@ -79,14 +152,14 @@ export default {
       timelineLoading: true,
       timeline: [],
       customToolbar: [
-        ['bold', 'italic', 'underline'],
-        [{ list: 'ordered' }, { list: 'bullet' }],
-        [{ indent: '-1' }, { indent: '+1' }],
+        ["bold", "italic", "underline"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ indent: "-1" }, { indent: "+1" }],
         [{ header: [1, 2, 3, 4, 5, 6, 7] }],
         [{ color: [] }, { background: [] }],
         [{ font: [] }],
         [{ align: [] }],
-        ['clean']
+        ["clean"]
       ]
     };
   },
@@ -97,11 +170,11 @@ export default {
   },
   computed: {
     sizeDialog() {
-      const mq = window.matchMedia('(max-width: 600px)');
+      const mq = window.matchMedia("(max-width: 600px)");
       if (mq.matches) {
-        return 'full';
+        return "full";
       } else {
-        return 'small';
+        return "small";
       }
     },
     timelineData() {
@@ -127,15 +200,15 @@ export default {
       }
     },
     uploadImage(file) {
-      const isJPG = file.target.files[0].type == 'image/jpeg';
-      const isPNG = file.target.files[0].type == 'image/png';
+      const isJPG = file.target.files[0].type == "image/jpeg";
+      const isPNG = file.target.files[0].type == "image/png";
       const isLt3M = file.target.files[0].size / 1024 / 1024 < 3;
       if (isJPG || isPNG) {
         if (isLt3M) {
-          const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+          const config = { headers: { "Content-Type": "multipart/form-data" } };
           let uploadImage = new FormData();
-          uploadImage.append('id_timeline', this.currentArticle.idTimeline);
-          uploadImage.append('imagen', file.target.files[0]);
+          uploadImage.append("id_timeline", this.currentArticle.idTimeline);
+          uploadImage.append("imagen", file.target.files[0]);
           axios
             .post(`${this.$urlHttp}/timeline/nueva/imagen`, uploadImage, config)
             .then(response => {
@@ -153,7 +226,7 @@ export default {
         destino: this.currentArticle.destino,
         soundcloud: this.currentArticle.soundcloud,
         youtube: this.currentArticle.youtube,
-        _method: 'PUT'
+        _method: "PUT"
       };
       axios
         .post(
@@ -310,7 +383,7 @@ export default {
 .images_tiny_photo:hover .remove_photo {
   opacity: 1;
 }
-.images_tiny_photo input[type='file'] {
+.images_tiny_photo input[type="file"] {
   position: absolute;
   width: 100%;
   height: 100%;

@@ -511,7 +511,7 @@ export default {
     reloadIframe() {
       document.getElementById(
         'iframePreview'
-      ).src = `https://meta.gov.co/micrositio/${this.micrositioEdit.id}`;
+      ).src = `https://fablabkujana.com/${this.micrositioEdit.id}`;
     }
   }
 };

@@ -1,29 +1,43 @@
 <template>
-  <article class="timeline_article" :id="`article${article.idTimeline}`">
+  <article
+    class="timeline_article"
+    :id="`article${article.idTimeline}`"
+  >
     <header class="timeline_article_header">
       <div>
         <!-- <figure class="timeline_article_header_photo">
           <img :src="`${$urlHttp}/imagenes_usuario/imagen_usuario/${article.usuario.imagen}`">
         </figure> -->
-        <p class="timeline_article_header_name">{{ article.usuario.nombreUsuario }}</p>
+        <!-- <p class="timeline_article_header_name">{{ article.usuario.nombreUsuario }}</p> -->
       </div>
-      <i class="material-icons" v-if="(currentUser.id == article.usuario.id) || allow()" v-on:click="openDialogEditArticle">more_vert</i>
+      <!-- <i class="material-icons" v-if="(currentUser.id == article.usuario.id) || allow()" v-on:click="openDialogEditArticle">more_vert</i> -->
     </header>
     <h2 class="timeline_article_title">{{ article.titulo }}</h2>
-    <p class="timeline_article_text" v-html="article.contenido"></p>
-    <a v-if="article.archivo" class="file" :download='`${$urlHttp}/archivos_timeline/${article.archivo}`' :href="`${$urlHttp}/archivos_timeline/${article.archivo}`">
+    <p
+      class="timeline_article_text"
+      v-html="article.contenido"
+    ></p>
+    <!-- <a
+      v-if="article.archivo"
+      class="file"
+      :download='`${$urlHttp}/archivos_timeline/${article.archivo}`'
+      :href="`${$urlHttp}/archivos_timeline/${article.archivo}`"
+    >
       <i class="material-icons">insert_drive_file</i>
       <p>Descarga este archivo</p>
       <i class="el-icon-upload"></i>
-    </a>
-    <div v-html="article.soundcloud"></div>
-    <div v-show="article.imagenes.length != 0 || article.youtube != null" class="timeline_article_photo">
+    </a> -->
+    <!-- <div v-html="article.soundcloud"></div> -->
+    <div
+      v-show="article.imagenes.length != 0 || article.youtube != null"
+      class="timeline_article_photo"
+    >
       <carousel :perPage="1">
-        <!-- <slide v-for="image in article.imagenes">
+        <slide v-for="image in article.imagenes">
           <div class="article_slide">
             <img :src="`${$urlHttp}/imagen_timeline/${image.nombre_imagen}`">
           </div>
-        </slide> -->
+        </slide>
         <slide v-if="article.youtube">
           <div class="article_slide">
             <div v-html="article.youtube"></div>
@@ -31,19 +45,22 @@
         </slide>
       </carousel>
     </div>
-    <comentarios :comments="setSortComments(article.comentario)" :article="article"></comentarios>
+    <!-- <comentarios
+      :comments="setSortComments(article.comentario)"
+      :article="article"
+    ></comentarios> -->
   </article>
 </template>
 
 <script>
-import comentarios from '../comentarios.vue';
+import comentarios from "../comentarios.vue";
 
 export default {
   components: { comentarios },
-  props: ['article', 'index'],
+  props: ["article", "index"],
   data() {
     return {
-      paginate: ['timelineData']
+      paginate: ["timelineData"]
     };
   },
   computed: {
@@ -53,7 +70,7 @@ export default {
   },
   methods: {
     openDialogEditArticle() {
-      this.$emit('edit', this.article, this.index);
+      this.$emit("edit", this.article, this.index);
     },
     setSortComments(comments) {
       if (comments.length != 0) {
