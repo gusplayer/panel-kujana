@@ -104,7 +104,7 @@
               <p>Agenda</p>
             </router-link>
           </li> -->
-          <!-- <li class="menuLateral_navigation__item documents">
+          <li class="menuLateral_navigation__item documents">
             <router-link to="/documentos">
               <svg width="18px" height="22px" viewBox="0 0 18 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>files board icon</title>
@@ -127,7 +127,7 @@
               </svg>
               <p>Documentos</p>
             </router-link>
-          </li> -->
+          </li>
           <!-- <li class="menuLateral_navigation__item" v-on:click="clearNotificaciones">
             <router-link to="/chat">
               <svg width="23px" height="22px" viewBox="0 0 23 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
